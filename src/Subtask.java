@@ -6,5 +6,9 @@ public class Subtask extends Task {
         super(name, description, status);
         epicId = newEpicId;
     }
+    @Override
+    public String toString() {
+        return "Subtask ID " + id + ", EpicID " + epicId + ", " + name + ", " + description + ", " + status;
+    }
 
 }

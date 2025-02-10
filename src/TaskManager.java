@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class TaskManager {
     public HashMap<Integer, Task> getTaskList() {
         for (Map.Entry<Integer, Task> task : tasks.entrySet()) {
             Task t = task.getValue();
-            System.out.println("Task " + task.getKey() + ", ID " + t.id + ", " + t.name + ", " + t.description + ", " + t.status);
+            System.out.println(t);
         }
         return tasks;
     }
@@ -39,7 +40,7 @@ public class TaskManager {
     public HashMap<Integer, Epic> getEpicList() {
         for (Map.Entry<Integer, Epic> epic : epics.entrySet()) {
             Epic e = epic.getValue();
-            System.out.println("Epic " + epic.getKey() + ", ID " + e.id + ", " + e.name + ", " + e.description + ", " + e.status);
+            System.out.println(e.toString());
         }
         return epics;
     }
@@ -47,7 +48,7 @@ public class TaskManager {
     public HashMap<Integer, Subtask> getSubtaskList() {
         for (Map.Entry<Integer, Subtask> subtask : subtasks.entrySet()) {
             Subtask s = subtask.getValue();
-            System.out.println("Subtask " + subtask.getKey() + ", ID " + s.id + ", EpicID " + s.epicId + ", " + s.name + ", " + s.description + ", " + s.status);
+            System.out.println(s.toString());
         }
         return subtasks;
     }
@@ -67,17 +68,44 @@ public class TaskManager {
         return subtasks.get(id);
     }
 
+    public HashMap<Integer, Task> deleteAllTasks() {
+        tasks.clear();
+        return tasks;
+    }
+
+    public HashMap<Integer, Epic> deleteAllEpics() {
+        epics.clear();
+        return epics;
+    }
+
+    public HashMap<Integer, Subtask> deleteAllSubtasks() {
+        subtasks.clear();
+        return subtasks;
+    }
+
+    public void updateTask(int taskId, Task task) {
+        tasks.replace(taskId, task);
+        task.id = taskId;
+    }
+
+    public void updateEpic(int epicId, Epic newEpic) {
+        ArrayList<Integer> subTasks = epics.get(epicId).subtasks;
+        epics.replace(epicId, newEpic);
+        newEpic.id = epicId;
+        newEpic.subtasks = subTasks;
+    }
+
 /*
-    getTaskList() {
+ +   getTaskList() {
 
     }
     delAllTasks() {
 
     }
-    getTask(int id) {
+ +   getTask(int id) {
 
     }
-    createTask(Task task) {
+ +   createTask(Task task) {
 
     }
     updateTask(Task task) {

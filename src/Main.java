@@ -25,7 +25,8 @@ public class Main {
         System.out.println("Обновление задачи и вывод обновленной задачи по ID:");
         taskManager.updateTask(2, new Task("Cange task name", "Change deccript", Status.IN_PROGRESS));
         taskManager.getTaskList();
-
+        taskManager.updateEpic(4, new Epic("Updane epic name", "Upd epic description", Status.IN_PROGRESS));
+        taskManager.getEpicList();
 
         System.out.println("Удаление всех задач и вывод пустых списков:");
         taskManager.deleteAllTasks();

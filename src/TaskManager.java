@@ -95,11 +95,18 @@ public class TaskManager {
         newEpic.subtasks = subTasks;
     }
 
+    public void updateSubtask(int subId, Subtask subtask) {
+        int epicOfSubId = subtasks.get(subId).epicId;
+        subtasks.replace(subId, subtask);
+        subtask.id = subId;
+        subtask.epicId = epicOfSubId;
+    }
+
 /*
  +   getTaskList() {
 
     }
-    delAllTasks() {
++    delAllTasks() {
 
     }
  +   getTask(int id) {

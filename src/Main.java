@@ -27,8 +27,16 @@ public class Main {
         taskManager.getSubtask(6);
 
         System.out.println("Получение списка подзадач по ID эпика:");
-        taskManager.getSubtasksOfEpic(3);
-        taskManager.getSubtasksOfEpic(4);
+        taskManager.printSubtasksOfEpic(3);
+        taskManager.printSubtasksOfEpic(4);
+
+        System.out.println("Проверка перехода эпика в статус DONE при завершении всех подзадач:");
+        taskManager.updateSubtask(6, new Subtask("Sub 6", "Upd sub description", Status.DONE, 4));
+        taskManager.getEpic(4);
+        taskManager.updateSubtask(7, new Subtask("Sub 7", "Upd sub description", Status.DONE, 4));
+        taskManager.updateSubtask(8, new Subtask("Sub 8", "Upd sub description", Status.DONE, 3));
+        taskManager.getEpic(4);
+        taskManager.getEpic(3);
 
         System.out.println("Удаление задачи, эпика и подзадачи по ID. Вывод оставшихся:");
         taskManager.deleteTask(1);

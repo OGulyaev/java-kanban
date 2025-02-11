@@ -28,7 +28,6 @@ public class TaskManager {
         epic.addSubtask(subtask.id);
     }
 
-
     public HashMap<Integer, Task> getTaskList() {
         for (Map.Entry<Integer, Task> task : tasks.entrySet()) {
             Task t = task.getValue();
@@ -100,6 +99,21 @@ public class TaskManager {
         subtasks.replace(subId, subtask);
         subtask.id = subId;
         subtask.epicId = epicOfSubId;
+        HashMap<Integer, Subtask> subtasksOfEpic = getSubtasksOfEpic(epicOfSubId);
+        boolean isDone = false;
+        //boolean isNew = false;
+        for (Map.Entry<Integer, Subtask> sub : subtasksOfEpic.entrySet()) {
+            if (!sub.getValue().status.equals(Status.DONE)) {
+                isDone = false;
+                return;
+            } else {
+                isDone = true;
+            }
+        }
+        if (isDone) {
+            epics.get(epicOfSubId).status = Status.DONE;
+        }
+        // add update status to IN_PROGRESS. if isNew then NEW. else of !isDone && !isNew then IN_PROGRESS
     }
 
     public HashMap<Integer, Task> deleteTask(int taskId) {
@@ -122,12 +136,16 @@ public class TaskManager {
         ArrayList<Integer> subs = epics.get(epicId).subtasks;
         for (Integer sub : subs) {
             subtasksOfEpic.put(sub, subtasks.get(sub));
-            System.out.println(subtasks.get(sub).toString());
         }
         return subtasksOfEpic;
-
     }
 
+    public void printSubtasksOfEpic(int epicId) {
+        HashMap<Integer, Subtask> subtasksOfEpic = getSubtasksOfEpic(epicId);
+        for (Map.Entry<Integer, Subtask> sub : subtasksOfEpic.entrySet()) {
+            System.out.println(sub.getValue().toString());
+        }
+    }
 
 
 /*

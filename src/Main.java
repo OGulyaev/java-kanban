@@ -38,6 +38,14 @@ public class Main {
         taskManager.getEpic(4);
         taskManager.getEpic(3);
 
+        System.out.println("Проверка перехода эпика в статус IN_PROGRESS при изменении статуса подзадачи:");
+        taskManager.updateSubtask(6, new Subtask("Sub 6", "Upd sub description", Status.NEW, 4));
+        taskManager.getEpic(4);
+        System.out.println("Проверка перехода эпика в статус NEW, когда все подзадачи NEW:");
+        taskManager.updateSubtask(7, new Subtask("Sub 7", "Upd sub description", Status.NEW, 4));
+        taskManager.getEpic(4);
+
+
         System.out.println("Удаление задачи, эпика и подзадачи по ID. Вывод оставшихся:");
         taskManager.deleteTask(1);
         taskManager.deleteEpic(3);

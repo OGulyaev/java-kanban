@@ -101,7 +101,7 @@ public class TaskManager {
         subtask.epicId = epicOfSubId;
         HashMap<Integer, Subtask> subtasksOfEpic = getSubtasksOfEpic(epicOfSubId);
         boolean isDone = false;
-        //boolean isNew = false;
+        boolean isNew = false;
         for (Map.Entry<Integer, Subtask> sub : subtasksOfEpic.entrySet()) {
             if (!sub.getValue().status.equals(Status.DONE)) {
                 isDone = false;
@@ -113,7 +113,20 @@ public class TaskManager {
         if (isDone) {
             epics.get(epicOfSubId).status = Status.DONE;
         }
-        // add update status to IN_PROGRESS. if isNew then NEW. else of !isDone && !isNew then IN_PROGRESS
+        for (Map.Entry<Integer, Subtask> sub : subtasksOfEpic.entrySet()) {
+            if (!sub.getValue().status.equals(Status.NEW)) {
+                isNew = false;
+                return;
+            } else {
+                isNew = true;
+            }
+        }
+        if (isNew) {
+            epics.get(epicOfSubId).status = Status.NEW;
+        }
+        if (!isDone && !isNew) {
+            epics.get(epicOfSubId).status = Status.IN_PROGRESS;
+        }
     }
 
     public HashMap<Integer, Task> deleteTask(int taskId) {

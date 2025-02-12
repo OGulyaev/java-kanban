@@ -3,13 +3,12 @@ import java.util.Objects;
 public class Task {
     public String name;
     public String description;
-    public Status status;
+    public Status status = Status.NEW;
     public int id;
 
-    public Task(String name, String description, Status status) {
+    public Task(String name, String description) {
         this.name = name;
         this.description = description;
-        this.status = status;
     }
 
     @Override

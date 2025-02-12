@@ -71,14 +71,14 @@ public class Main {
 
     public static void printAllEpics(HashMap<Integer, Epic> allEpics) {
         for (Map.Entry<Integer, Epic> epic : allEpics.entrySet()) {
-            Task e = epic.getValue();
+            Epic e = epic.getValue();
             System.out.println(e);
         }
     }
 
     public static void printAllSubtasks(HashMap<Integer, Subtask> allSubtasks) {
         for (Map.Entry<Integer, Subtask> subtask : allSubtasks.entrySet()) {
-            Task s = subtask.getValue();
+            Subtask s = subtask.getValue();
             System.out.println(s);
         }
     }

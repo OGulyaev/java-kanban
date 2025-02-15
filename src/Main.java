@@ -2,9 +2,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-
+    public static TaskManager taskManager = new TaskManager();
     public static void main(String[] args) {
-        TaskManager taskManager = new TaskManager();
+        //TaskManager taskManager = new TaskManager();
         taskManager.createTask(new Task("First task name", "First deccript"));
         taskManager.createTask(new Task("Second task name", "Second deccript"));
         taskManager.createEpic(new Epic("Epic name one", "Epic deccript one"));
@@ -21,28 +21,28 @@ public class Main {
 
         System.out.println("Обновление задачи и вывод обновленной задачи по ID:");
         taskManager.updateTask(2, new Task("Cange task name", "Change deccript"), Status.IN_PROGRESS);
-        taskManager.printTask(2);
+        printTask(2);
         taskManager.updateEpic(4, new Epic("Update epic name", "Upd epic description"));
-        taskManager.printEpic(4);
+        printEpic(4);
         taskManager.updateSubtask(6, new Subtask("Upd sub name", "Upd sub description", 4), Status.IN_PROGRESS);
-        taskManager.printSubtask(6);
+        printSubtask(6);
 
         System.out.println("Получение списка подзадач по ID эпика:");
-        taskManager.printSubtasksOfEpic(3);
-        taskManager.printSubtasksOfEpic(4);
+        printSubtasksOfEpic(3);
+        printSubtasksOfEpic(4);
 
         System.out.println("Проверка перехода эпика в статус DONE при завершении всех подзадач:");
         taskManager.updateSubtask(6, new Subtask("Sub 6", "Upd sub description", 4), Status.DONE);
-        taskManager.printEpic(4);
+        printEpic(4);
         taskManager.updateSubtask(7, new Subtask("Sub 7", "Upd sub description", 4), Status.DONE);
-        taskManager.printEpic(4);
+        printEpic(4);
 
         System.out.println("Проверка перехода эпика в статус IN_PROGRESS при изменении статуса подзадачи:");
         taskManager.updateSubtask(6, new Subtask("Sub 6", "Upd sub description", 4), Status.NEW);
-        taskManager.printEpic(4);
+        printEpic(4);
         System.out.println("Проверка перехода эпика в статус NEW, когда все подзадачи NEW:");
         taskManager.updateSubtask(7, new Subtask("Sub 7", "Upd sub description", 4), Status.NEW);
-        taskManager.printEpic(4);
+        printEpic(4);
 
         System.out.println("Удаление задачи, эпика и подзадачи по ID. Вывод оставшихся:");
         taskManager.deleteTask(1);
@@ -82,5 +82,24 @@ public class Main {
             System.out.println(s);
         }
     }
+
+    public static void printTask(int id) {
+        System.out.println(taskManager.getTask(id));
+    }
+
+    public static void printEpic(int id) {
+        System.out.println(taskManager.getEpic(id));
+    }
+
+    public static void printSubtask(int id) {
+        System.out.println(taskManager.getSubtask(id));
+    }
+
+    public static void printSubtasksOfEpic(int epicId) {
+        for (Subtask subtask : taskManager.getSubtasksOfEpic(epicId)) {
+            System.out.println(subtask);
+        }
+    }
+
 
 }

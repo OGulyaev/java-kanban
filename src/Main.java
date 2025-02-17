@@ -1,9 +1,3 @@
-/*
-Влад, привет! Спасибо за ревью. Не смог найти тебя в пачке, есть вопрос: я не понял как передавать в update методы
-только новый экзепляр эпика или подзадачи без id - как тогда понять какой эпик или подзадачу обновлять?
-Оставил в параметрах методов id и экземпляр класса. Если так не подходит, то нужна твоя помощь - как понять,
-какой эпик апдейтить, если передается только экземпляр нового эпика с новым id?
-*/
 import manager.TaskManager;
 import model.Epic;
 import model.Status;
@@ -18,9 +12,9 @@ public class Main {
         //manager.TaskManager taskManager = new manager.TaskManager();
         taskManager.createTask(new Task(taskManager.generateId(), "First task name", "First deccript", Status.NEW));
         taskManager.createTask(new Task(taskManager.generateId(), "Second task name", "Second deccript", Status.NEW));
-        taskManager.createEpic(new Epic(taskManager.generateId(), "model.Epic name one", "model.Epic deccript one",
+        taskManager.createEpic(new Epic(taskManager.generateId(), "Epic name one", "Epic deccript one",
                 Status.NEW));
-        taskManager.createEpic(new Epic(taskManager.generateId(), "model.Epic name two", "model.Epic deccription two",
+        taskManager.createEpic(new Epic(taskManager.generateId(), "Epic name two", "Epic deccription two",
                 Status.NEW));
         taskManager.createSubtask(new Subtask(taskManager.generateId(), "Sub name one Ep 3", "Sub deccript one",
                 Status.NEW, 3));
@@ -39,7 +33,7 @@ public class Main {
         printAllSubtasks(taskManager.getSubtaskList());
 
         System.out.println("Обновление задачи и вывод обновленной задачи по ID:");
-        taskManager.updateTask(new Task(2, "Cange task name", "Change deccript", Status.NEW));
+        taskManager.updateTask(new Task(2, "Change task name", "Change descript", Status.NEW));
         printAllTasks(taskManager.getTaskList());
         taskManager.updateEpic(new Epic(4, "Update epic name", "Upd epic description",
                 Status.NEW));

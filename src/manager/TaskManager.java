@@ -14,23 +14,27 @@ public class TaskManager {
     public HashMap<Integer, Subtask> subtasks = new HashMap<>();
     public Integer id = 0;
 
+    public int generateId() {
+        return id++;
+    }
+
     public void createTask(Task task) {
-        id++;
-        task.setId(id);
+        //id++;
+        //task.setId(id);
         tasks.put(id, task);
     }
 
     public void createEpic(Epic epic) {
-        id++;
-        epic.setId(id);
+        //id++;
+        //epic.setId(id);
         epics.put(id, epic);
         epic.setStatus(Status.NEW);
     }
 
     public void createSubtask(Subtask subtask) {
         if (epics.get(subtask.getEpicId()) != null) {
-            id++;
-            subtask.setId(id);
+            //id++;
+            //subtask.setId(id);
             subtasks.put(id, subtask);
             Epic epic = epics.get(subtask.getEpicId());
             epic.addSubtask(subtask);
@@ -82,21 +86,22 @@ public class TaskManager {
     }
 
     public void updateTask(Task task) {
-        id++;
-        task.setId(id);
-        tasks.put(id, task);
+        //id++;
+        //task.setId(id);
+        //tasks.put(id, task);
+        tasks.put(task.getId(), task);
     }
 
-    public void updateEpic(int epicId, Epic newEpic) {
-        epics.get(epicId).setName(newEpic.getName());
-        epics.get(epicId).setDescription(newEpic.getDescription());
+    public void updateEpic(Epic newEpic) {
+        epics.get(newEpic.getId()).setName(newEpic.getName());
+        epics.get(newEpic.getId()).setDescription(newEpic.getDescription());
       }
 
-    public void updateSubtask(int subId, Subtask subtask) {
-        subtasks.get(subId).setName(subtask.getName());
-        subtasks.get(subId).setDescription(subtask.getDescription());
-        subtasks.get(subId).setStatus(subtask.getStatus());
-        checkOfEpicStatus(subtasks.get(subId).getEpicId());
+    public void updateSubtask(Subtask subtask) {
+        subtasks.get(subtask.getId()).setName(subtask.getName());
+        subtasks.get(subtask.getId()).setDescription(subtask.getDescription());
+        subtasks.get(subtask.getId()).setStatus(subtask.getStatus());
+        checkOfEpicStatus(subtasks.get(subtask.getId()).getEpicId());
     }
 
     private void checkOfEpicStatus(int epicId) {

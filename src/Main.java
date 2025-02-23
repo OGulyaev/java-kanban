@@ -1,4 +1,4 @@
-import manager.TaskManager;
+import manager.InMemoryTaskManager;
 import model.Epic;
 import model.Status;
 import model.Subtask;
@@ -7,7 +7,7 @@ import model.Task;
 import java.util.ArrayList;
 
 public class Main {
-    public static TaskManager taskManager = new TaskManager();
+    public static InMemoryTaskManager taskManager = new InMemoryTaskManager();
     public static void main(String[] args) {
         //manager.TaskManager taskManager = new manager.TaskManager();
         taskManager.createTask(new Task(taskManager.generateId(), "First task name", "First deccript", Status.NEW));
@@ -121,3 +121,42 @@ public class Main {
     }
 
 }
+/*
+Обобщаем класс Менеджер:
++ делаем TaskManager интерфейсом
++ в IDEA сделать интерфейс из имеющегося класса командой Refactor → Extract/Introduce → Interface. Нужные для интерфейса методы отметить чекбоксами
+Cписок методов, которые будут у любого объекта-менеджера
+
++ старый класс TaskManager переименовать в InMemoryTaskManager. это оперативная память для управления задачами. оставить в классе реализацию методов. имплементировать в InMemoryTaskManager интерфейс TaskManager
+
++ @Override все методы в InMemoryTaskManager реализующие методы  TaskManager
+
++ сделать утилитарный класс Managers
+
+История задач:
+создать интерфейс HistoryManager
+в HistoryManager делаю метод getHistory. Реализовать getHistory в классе InMemoryHistoryManager, который реализует интерфейс HistoryManager
+
+добавить в Manager статический метод HistoryManager getDefaultHistory. Он должен возвращать объект InMemoryHistoryManager — историю просмотров.
+InMemoryTaskManager обращается к менеджеру истории через интерфейс HistoryManager и использует реализацию, которую возвращает метод getDefaultHistory
+
+Тесты:
+добавить библиотеки JUnit в проект
+
+анализ ТЗ и определение функциональных требований для тестов
+
+для каждого класса создаем тест-класс в каталоге test. обозначить test как тестовый каталог (Mark Directory as → Test Sources), если не подсветится как тестовый автоматом
+
+(см в ТЗ инструкцию Добавьте JUnit в проект (инструкция со скриншотами))
+
+проверьте, что экземпляры класса Task равны друг другу, если равен их id;
+проверьте, что наследники класса Task равны друг другу, если равен их id;
+проверьте, что объект Epic нельзя добавить в самого себя в виде подзадачи;
+проверьте, что объект Subtask нельзя сделать своим же эпиком;
+убедитесь, что утилитарный класс всегда возвращает проинициализированные и готовые к работе экземпляры менеджеров;
+проверьте, что InMemoryTaskManager действительно добавляет задачи разного типа и может найти их по id;
+проверьте, что задачи с заданным id и сгенерированным id не конфликтуют внутри менеджера;
+создайте тест, в котором проверяется неизменность задачи (по всем полям) при добавлении задачи в менеджер
+убедитесь, что задачи, добавляемые в HistoryManager, сохраняют предыдущую версию задачи и её данных.
+
+*/

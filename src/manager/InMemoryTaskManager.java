@@ -10,29 +10,32 @@ import java.util.HashMap;
 import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
+    //Managers manager = new Managers();
+    //HistoryManager historyManager = manager.getDefaultHistory();
+    public static InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
     public HashMap<Integer, Task> tasks = new HashMap<>();
     public HashMap<Integer, Epic> epics = new HashMap<>();
     public HashMap<Integer, Subtask> subtasks = new HashMap<>();
     public Integer id = 0;
-    public List<? extends Task> taskHistory = new ArrayList<>();
-    // см https://practicum.yandex.ru/learn/java-developer-plus/courses/7adea5ca-7cdf-4d15-927e-79481f8a984f/sprints/443417/topics/746622dc-1a58-4114-8115-cf8e2ccfeba8/lessons/d42a8dc5-f0bd-46c6-a087-5e9cc45ed674/
-    // Wildcard
-    // https://chat.deepseek.com/a/chat/s/fa7e86d1-a284-4a64-890a-3076be74f12f
+    public List<Task> taskHistory = new ArrayList<>();
+/*
     @Override
-    public List<? extends Task> getHistory() {
+    public List<Task> getHistory() {
         return taskHistory;
     }
 
+    @Override
     public void addInHistory(Task task) {
+        if (taskHistory.size() >= 10) taskHistory.removeFirst();
         if (task instanceof Epic) {
             taskHistory.add(epics.get(task.getId()));
-        }
-        if (task instanceof Task) {
+        } else if (task instanceof Subtask) {
+            taskHistory.add(subtasks.get(task.getId()));
+        } else {
             taskHistory.add(tasks.get(task.getId()));
         }
-        //taskHistory.add(tasks.get(taskId));
     }
-
+*/
     @Override
     public int generateId() {
         id++;
@@ -77,17 +80,19 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task getTask(int id) {
-        addHistory(id);
+        historyManager.addInHistory(tasks.get(id));
         return tasks.get(id);
     }
 
     @Override
     public Epic getEpic(int id) {
+        historyManager.addInHistory(epics.get(id));
         return epics.get(id);
     }
 
     @Override
     public Subtask getSubtask(int id) {
+        historyManager.addInHistory(subtasks.get(id));
         return subtasks.get(id);
     }
 

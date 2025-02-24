@@ -1,7 +1,6 @@
 package manager;
 
 import model.Epic;
-import model.Status;
 import model.Subtask;
 import model.Task;
 
@@ -9,7 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface TaskManager {
-    List<? extends Task> getHistory();
+/*
+    List<Task> getHistory();
+
+    void addInHistory(Task task);
+*/
 
     int generateId();
 

@@ -1,3 +1,4 @@
+import manager.InMemoryHistoryManager;
 import manager.InMemoryTaskManager;
 import model.Epic;
 import model.Status;
@@ -5,9 +6,11 @@ import model.Subtask;
 import model.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static InMemoryTaskManager taskManager = new InMemoryTaskManager();
+    public static InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
     public static void main(String[] args) {
         //manager.TaskManager taskManager = new manager.TaskManager();
         taskManager.createTask(new Task(taskManager.generateId(), "First task name", "First deccript", Status.NEW));
@@ -33,7 +36,7 @@ public class Main {
         printAllSubtasks(taskManager.getSubtaskList());
 
         System.out.println("Обновление задачи и вывод обновленной задачи по ID:");
-        taskManager.updateTask(new Task(2, "Change task name", "Change descript", Status.NEW));
+        taskManager.updateTask(new Task(2, "Change task name", "Change descript", Status.IN_PROGRESS));
         printAllTasks(taskManager.getTaskList());
         taskManager.updateEpic(new Epic(4, "Update epic name", "Upd epic description",
                 Status.NEW));
@@ -62,6 +65,16 @@ public class Main {
         taskManager.updateSubtask(new Subtask(7, "Sub 7", "Upd sub description",
                 Status.NEW, 4));
         printEpic(4);
+
+        printHistory();
+
+        printTask(1);
+        printTask(2);
+        printEpic(4);
+        printTask(1);
+        printTask(2);
+
+        printHistory();
 
         System.out.println("Удаление задачи, эпика и подзадачи по ID. Вывод оставшихся:");
         taskManager.deleteTask(1);
@@ -120,6 +133,16 @@ public class Main {
         }
     }
 
+    public static void printHistory() {
+        System.out.println();
+        System.out.println("История:");
+        List<Task> taskHistory = historyManager.getHistory();
+        for (Task task : taskHistory) {
+        System.out.println(task);
+        }
+        System.out.println();
+    }
+
 }
 /*
 Обобщаем класс Менеджер:
@@ -133,7 +156,8 @@ Cписок методов, которые будут у любого объек
 
 + сделать утилитарный класс Managers
 
-История задач:
++ История задач
+
 создать интерфейс HistoryManager
 в HistoryManager делаю метод getHistory. Реализовать getHistory в классе InMemoryHistoryManager, который реализует интерфейс HistoryManager
 

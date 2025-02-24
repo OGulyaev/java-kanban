@@ -14,7 +14,7 @@ public class InMemoryTaskManager implements TaskManager {
     public HashMap<Integer, Epic> epics = new HashMap<>();
     public HashMap<Integer, Subtask> subtasks = new HashMap<>();
     public Integer id = 0;
-    public List<? extends Task> taskHistory;
+    public List<? extends Task> taskHistory = new ArrayList<>();
     // см https://practicum.yandex.ru/learn/java-developer-plus/courses/7adea5ca-7cdf-4d15-927e-79481f8a984f/sprints/443417/topics/746622dc-1a58-4114-8115-cf8e2ccfeba8/lessons/d42a8dc5-f0bd-46c6-a087-5e9cc45ed674/
     // Wildcard
     // https://chat.deepseek.com/a/chat/s/fa7e86d1-a284-4a64-890a-3076be74f12f
@@ -23,7 +23,13 @@ public class InMemoryTaskManager implements TaskManager {
         return taskHistory;
     }
 
-    public void addHistory(int taskId) {
+    public void addInHistory(Task task) {
+        if (task instanceof Epic) {
+            taskHistory.add(epics.get(task.getId()));
+        }
+        if (task instanceof Task) {
+            taskHistory.add(tasks.get(task.getId()));
+        }
         //taskHistory.add(tasks.get(taskId));
     }
 

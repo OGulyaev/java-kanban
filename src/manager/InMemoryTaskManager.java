@@ -1,41 +1,17 @@
 package manager;
 
-import model.Epic;
-import model.Status;
-import model.Subtask;
-import model.Task;
-
+import model.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
-    //Managers manager = new Managers();
-    //HistoryManager historyManager = manager.getDefaultHistory();
-    public static InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
+    public static Managers manager = new Managers();
+    public static HistoryManager historyManager = manager.getDefaultHistory();
     public HashMap<Integer, Task> tasks = new HashMap<>();
     public HashMap<Integer, Epic> epics = new HashMap<>();
     public HashMap<Integer, Subtask> subtasks = new HashMap<>();
     public Integer id = 0;
-    public List<Task> taskHistory = new ArrayList<>();
-/*
-    @Override
-    public List<Task> getHistory() {
-        return taskHistory;
-    }
 
-    @Override
-    public void addInHistory(Task task) {
-        if (taskHistory.size() >= 10) taskHistory.removeFirst();
-        if (task instanceof Epic) {
-            taskHistory.add(epics.get(task.getId()));
-        } else if (task instanceof Subtask) {
-            taskHistory.add(subtasks.get(task.getId()));
-        } else {
-            taskHistory.add(tasks.get(task.getId()));
-        }
-    }
-*/
     @Override
     public int generateId() {
         id++;

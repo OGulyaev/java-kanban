@@ -1,22 +1,14 @@
 package manager;
 
-import model.Epic;
-import model.Subtask;
-import model.Task;
-
+import model.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    //Managers manager = new Managers();
-    //TaskManager taskManager = manager.getDefault();
-    public static InMemoryTaskManager taskManager = new InMemoryTaskManager();
-    public List<Task> taskHistory = new ArrayList<>();
-    public ArrayList<Task> tasks = taskManager.getTaskList();
-    public ArrayList<Epic> epics = taskManager.getEpicList();
-    public ArrayList<Subtask> subtasks = taskManager.getSubtaskList();
+    public static Managers manager = new Managers();
+    public static TaskManager taskManager = manager.getDefault();
+    public static List<Task> taskHistory = new ArrayList<>();
 
     @Override
     public List<Task> getHistory() {
@@ -27,13 +19,5 @@ public class InMemoryHistoryManager implements HistoryManager {
     public void addInHistory(Task task) {
         if (taskHistory.size() >= 10) taskHistory.removeFirst();
         taskHistory.add(task);
-/*        if (task instanceof Epic) {
-            taskHistory.add(epics.get(task.getId()));
-        } else if (task instanceof Subtask) {
-            taskHistory.add(subtasks.get(task.getId()));
-        } else {
-            taskHistory.add(tasks.get(task.getId()));
-        }
-        */
     }
 }

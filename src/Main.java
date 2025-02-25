@@ -1,18 +1,15 @@
-import manager.InMemoryHistoryManager;
-import manager.InMemoryTaskManager;
-import model.Epic;
-import model.Status;
-import model.Subtask;
-import model.Task;
-
+import manager.*;
+import model.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static InMemoryTaskManager taskManager = new InMemoryTaskManager();
-    public static InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
+    public static Managers manager = new Managers();
+    public static TaskManager taskManager = manager.getDefault();
+    public static HistoryManager historyManager = manager.getDefaultHistory();
+
     public static void main(String[] args) {
-        //manager.TaskManager taskManager = new manager.TaskManager();
+
         taskManager.createTask(new Task(taskManager.generateId(), "First task name", "First deccript", Status.NEW));
         taskManager.createTask(new Task(taskManager.generateId(), "Second task name", "Second deccript", Status.NEW));
         taskManager.createEpic(new Epic(taskManager.generateId(), "Epic name one", "Epic deccript one",
@@ -158,11 +155,11 @@ Cписок методов, которые будут у любого объек
 
 + История задач
 
-создать интерфейс HistoryManager
-в HistoryManager делаю метод getHistory. Реализовать getHistory в классе InMemoryHistoryManager, который реализует интерфейс HistoryManager
++ создать интерфейс HistoryManager
++ в HistoryManager делаю метод getHistory. Реализовать getHistory в классе InMemoryHistoryManager, который реализует интерфейс HistoryManager
 
-добавить в Manager статический метод HistoryManager getDefaultHistory. Он должен возвращать объект InMemoryHistoryManager — историю просмотров.
-InMemoryTaskManager обращается к менеджеру истории через интерфейс HistoryManager и использует реализацию, которую возвращает метод getDefaultHistory
++ добавить в Manager статический метод HistoryManager getDefaultHistory. Он должен возвращать объект InMemoryHistoryManager — историю просмотров.
++ InMemoryTaskManager обращается к менеджеру истории через интерфейс HistoryManager и использует реализацию, которую возвращает метод getDefaultHistory
 
 Тесты:
 добавить библиотеки JUnit в проект

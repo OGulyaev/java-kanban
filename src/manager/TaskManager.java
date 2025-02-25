@@ -1,18 +1,10 @@
 package manager;
 
-import model.Epic;
-import model.Subtask;
-import model.Task;
-
+import model.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public interface TaskManager {
-/*
-    List<Task> getHistory();
-
-    void addInHistory(Task task);
-*/
 
     int generateId();
 

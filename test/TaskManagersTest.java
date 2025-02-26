@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import manager.*;
@@ -17,6 +16,16 @@ public class TaskManagersTest {
         taskManager.createTask(task);
         assertNotNull(taskManager.getTask(task.getId()), "Задача не найдена.");
         assertEquals(task, taskManager.getTask(task.getId()), "Задачи не совпадают.");
+
+        Epic epic = new Epic(taskManager.generateId(),"Test addNewTask", "Test addNewTask description", Status.NEW);
+        taskManager.createEpic(epic);
+        assertNotNull(taskManager.getEpic(epic.getId()), "Задача не найдена.");
+        assertEquals(epic, taskManager.getEpic(epic.getId()), "Задачи не совпадают.");
+
+        Subtask subtask = new Subtask(taskManager.generateId(),"Test addNewTask", "Test addNewTask description", Status.NEW, 2);
+        taskManager.createSubtask(subtask);
+        assertNotNull(taskManager.getSubtask(subtask.getId()), "Задача не найдена.");
+        assertEquals(subtask, taskManager.getSubtask(subtask.getId()), "Задачи не совпадают.");
 
         final List<Task> tasks = taskManager.getTaskList();
 

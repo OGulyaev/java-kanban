@@ -148,7 +148,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void checkOfEpicStatus(int epicId) {
         ArrayList<Subtask> subtasksOfEpic = getSubtasksOfEpic(epicId);
         if (!subtasksOfEpic.isEmpty()) {
-            Status epicStatus = subtasksOfEpic.getFirst().getStatus();
+            Status epicStatus = subtasksOfEpic.get(0).getStatus();
             for (Subtask sub : subtasksOfEpic) {
                 if (!sub.getStatus().equals(epicStatus)) {
                     epicStatus = Status.IN_PROGRESS;

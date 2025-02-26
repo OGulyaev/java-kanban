@@ -10,13 +10,12 @@ public class TaskManagersTest {
     public static Managers manager = new Managers();
     public static TaskManager taskManager = manager.getDefault();
     public static HistoryManager historyManager = manager.getDefaultHistory();
-/*
 
     @Test
     void addNewTask() {
         Task task = new Task(taskManager.generateId(),"Test addNewTask", "Test addNewTask description", Status.NEW);
-
-        //assertNotNull(taskManager.getTask(task.getId()), "Задача не найдена.");
+        taskManager.createTask(task);
+        assertNotNull(taskManager.getTask(task.getId()), "Задача не найдена.");
         assertEquals(task, taskManager.getTask(task.getId()), "Задачи не совпадают.");
 
         final List<Task> tasks = taskManager.getTaskList();
@@ -25,7 +24,6 @@ public class TaskManagersTest {
         assertEquals(1, tasks.size(), "Неверное количество задач.");
         assertEquals(task, tasks.get(0), "Задачи не совпадают.");
     }
-*/
 
     @Test
     void add() {

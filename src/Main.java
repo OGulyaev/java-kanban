@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static Managers manager = new Managers();
-    public static TaskManager taskManager = manager.getDefault();
-    public static HistoryManager historyManager = manager.getDefaultHistory();
+    public static TaskManager taskManager = Managers.getDefault();
 
     public static void main(String[] args) {
 
@@ -135,7 +133,7 @@ public class Main {
     }
 
     public static void printHistory() {
-        List<Task> taskHistory = historyManager.getHistory();
+        List<Task> taskHistory = taskManager.getHistory();
         for (Task task : taskHistory) {
         System.out.println(task);
         }

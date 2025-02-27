@@ -5,19 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
-
-    public static Managers manager = new Managers();
-    public static TaskManager taskManager = manager.getDefault();
-    public static List<Task> taskHistory = new ArrayList<>();
+    private static final int MAX_HISTORY_SIZE = 10;
+    public List<Task> taskHistory = new ArrayList<>();
 
     @Override
-    public List<Task> getHistory() {
-        return taskHistory;
+    public ArrayList<Task> getHistory() {
+        return new ArrayList<Task>(taskHistory);
     }
 
     @Override
     public void addInHistory(Task task) {
-        if (taskHistory.size() >= 10) taskHistory.remove(0);
-        taskHistory.add(task);
+        if (task != null) {
+            if (taskHistory.size() >= MAX_HISTORY_SIZE) taskHistory.remove(0);
+            taskHistory.add(task);
+        }
     }
+
 }

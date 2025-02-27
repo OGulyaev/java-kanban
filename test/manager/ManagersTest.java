@@ -1,14 +1,21 @@
 package manager;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ManagersTest {
 
-    @org.junit.jupiter.api.Test
-    void getDefault() {
+    @Test
+    void createNewTaskManager() {
+        TaskManager taskManager = Managers.getDefault();
+        assertNotNull(taskManager, "TaskManager is not null.");
     }
 
-    @org.junit.jupiter.api.Test
-    void getDefaultHistory() {
+    @Test
+    void createNewHistoryManager() {
+        HistoryManager historyManager = Managers.getDefaultHistory();
+        assertNotNull(historyManager, "HistoryManager is not null.");
     }
+
 }

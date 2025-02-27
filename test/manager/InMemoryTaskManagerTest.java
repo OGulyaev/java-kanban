@@ -1,91 +1,48 @@
 package manager;
 
+import model.Epic;
+import model.Status;
+import model.Subtask;
+import model.Task;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 class InMemoryTaskManagerTest {
+    public TaskManager taskManager = Managers.getDefault();
 
     @Test
-    void generateId() {
+    void addNewTaskAndControlTaskList() {
+        Task task = new Task(taskManager.generateId(),"Test addNewTask", "Test addNewTask description", Status.NEW);
+        taskManager.createTask(task);
+        assertNotNull(taskManager.getTask(task.getId()), "Задача не найдена.");
+        assertEquals(task, taskManager.getTask(task.getId()), "Задачи не совпадают.");
+
+        final List<Task> tasks = taskManager.getTaskList();
+        assertNotNull(tasks, "Задачи не возвращаются.");
+        assertEquals(1, tasks.size(), "Неверное количество задач.");
+        assertEquals(task, tasks.get(0), "Задачи не совпадают.");
     }
 
     @Test
-    void createTask() {
+    void addNewEpic() {
+        Epic epic = new Epic(taskManager.generateId(),"Test addNewTask", "Test addNewTask description", Status.NEW);
+        taskManager.createEpic(epic);
+        assertNotNull(taskManager.getEpic(epic.getId()), "Задача не найдена.");
+        assertEquals(epic, taskManager.getEpic(epic.getId()), "Задачи не совпадают.");
     }
 
     @Test
-    void createEpic() {
+    void addNewSubtask() {
+        Epic epic = new Epic(taskManager.generateId(),"Test addNewTask", "Test addNewTask description", Status.NEW);
+        taskManager.createEpic(epic);
+        Subtask subtask = new Subtask(taskManager.generateId(),"Test addNewTask", "Test addNewTask description", Status.NEW, epic.getId());
+        taskManager.createSubtask(subtask);
+        assertNotNull(taskManager.getSubtask(subtask.getId()), "Задача не найдена.");
+        assertEquals(subtask, taskManager.getSubtask(subtask.getId()), "Задачи не совпадают.");
     }
 
-    @Test
-    void createSubtask() {
-    }
 
-    @Test
-    void getTaskList() {
-    }
 
-    @Test
-    void getEpicList() {
-    }
-
-    @Test
-    void getSubtaskList() {
-    }
-
-    @Test
-    void getTask() {
-    }
-
-    @Test
-    void getEpic() {
-    }
-
-    @Test
-    void getSubtask() {
-    }
-
-    @Test
-    void deleteAllTasks() {
-    }
-
-    @Test
-    void deleteAllEpics() {
-    }
-
-    @Test
-    void deleteAllSubtasks() {
-    }
-
-    @Test
-    void updateTask() {
-    }
-
-    @Test
-    void updateEpic() {
-    }
-
-    @Test
-    void updateSubtask() {
-    }
-
-    @Test
-    void deleteTask() {
-    }
-
-    @Test
-    void deleteEpic() {
-    }
-
-    @Test
-    void deleteSubtask() {
-    }
-
-    @Test
-    void checkOfEpicStatus() {
-    }
-
-    @Test
-    void getSubtasksOfEpic() {
-    }
 }

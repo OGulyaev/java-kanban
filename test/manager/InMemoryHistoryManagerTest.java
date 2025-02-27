@@ -1,16 +1,40 @@
 package manager;
 
+import model.Status;
+import model.Task;
 import org.junit.jupiter.api.Test;
-
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {
+    public HistoryManager historyManager = Managers.getDefaultHistory();
+    public TaskManager taskManager = Managers.getDefault();
 
     @Test
-    void getHistory() {
+    void addTaskInHistoryAndControlEqualsOfTaskDataAfterAdd() {
+        Task task = new Task(taskManager.generateId(),"Test addNewTask", "Test addNewTask description", Status.NEW);
+        historyManager.addInHistory(task);
+        final List<Task> history = historyManager.getHistory();
+        assertNotNull(history, "История не пустая.");
+        Task taskFromHistory = history.get(history.size()-1);
+        assertEquals(task.getId(), taskFromHistory.getId(), "Задачи не совпадают.");
+        assertEquals(task.getName(), taskFromHistory.getName(), "Задачи не совпадают.");
+        assertEquals(task.getDescription(), taskFromHistory.getDescription(), "Задачи не совпадают.");
+        assertEquals(task.getStatus(), taskFromHistory.getStatus(), "Задачи не совпадают.");
+    }
+/*
+Влад, привет! Спасибо за ревью!
+ Я пока не нашел как получить констанут из класса, поэтому запилил жесткий размер списка истории:
+ */
+    @Test
+    void controlMaxHistorySizeIs10() {
+        int maxHistorySize = 10;
+        for (int i = 0; i <= maxHistorySize + 1; i++) {
+            Task task = new Task(taskManager.generateId(),"Test addNewTask", "Test addNewTask description", Status.NEW);
+            historyManager.addInHistory(task);
+        }
+        List<Task> history = historyManager.getHistory();
+        assertEquals(maxHistorySize, history.size(), "Размер истории не 10.");
     }
 
-    @Test
-    void addInHistory() {
-    }
 }

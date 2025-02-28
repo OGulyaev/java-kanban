@@ -8,4 +8,6 @@ public interface HistoryManager {
     ArrayList<Task> getHistory();
 
     void addInHistory(Task task);
+
+    int getHistoryMaxSize();
 }

@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class InMemoryHistoryManagerTest {
     public HistoryManager historyManager = Managers.getDefaultHistory();
     public TaskManager taskManager = Managers.getDefault();
+    public int historyMaxSize = historyManager.getHistoryMaxSize();
 
     @Test
     void addTaskInHistoryAndControlEqualsOfTaskDataAfterAdd() {
@@ -24,17 +25,17 @@ class InMemoryHistoryManagerTest {
     }
 /*
 Влад, привет! Спасибо за ревью!
- Я пока не нашел как получить констанут из класса, поэтому запилил жесткий размер списка истории:
+ Сделал еще один тест, поэтому добавил доп метод getHistoryMaxSize в HistoryManager,
+ чтобы использовать ту же константу:
  */
     @Test
     void controlMaxHistorySizeIs10() {
-        int maxHistorySize = 10;
-        for (int i = 0; i <= maxHistorySize + 1; i++) {
+        for (int i = 0; i <= historyMaxSize + 1; i++) {
             Task task = new Task(taskManager.generateId(),"Test addNewTask", "Test addNewTask description", Status.NEW);
             historyManager.addInHistory(task);
         }
         List<Task> history = historyManager.getHistory();
-        assertEquals(maxHistorySize, history.size(), "Размер истории не 10.");
+        assertEquals(historyMaxSize, history.size(), "Размер истории не 10.");
     }
 
 }

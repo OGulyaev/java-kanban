@@ -21,6 +21,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
     }
 
+    @Override
     public int getHistoryMaxSize() {
         return MAX_HISTORY_SIZE;
 

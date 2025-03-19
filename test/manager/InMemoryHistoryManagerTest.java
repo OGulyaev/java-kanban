@@ -22,10 +22,7 @@ class InMemoryHistoryManagerTest {
         assertEquals(task.getDescription(), taskFromHistory.getDescription(), "Задачи не совпадают.");
         assertEquals(task.getStatus(), taskFromHistory.getStatus(), "Задачи не совпадают.");
     }
-/*
-Влад, привет! Спасибо за ревью!
- Я пока не нашел как получить констанут из класса, поэтому запилил жесткий размер списка истории:
- */
+
     @Test
     void controlMaxHistorySizeIs10() {
         int maxHistorySize = 10;

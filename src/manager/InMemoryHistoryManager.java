@@ -15,6 +15,11 @@ public class InMemoryHistoryManager implements HistoryManager {
     @Override
     public ArrayList<Task> getHistory() {
         // добавить перебор двусвязного списка с добавлением в taskHistory
+        Node<Task> element = head;
+        while (element.next !=null) {
+            taskHistory.add(element.data);
+            element = element.next;
+        }
         return new ArrayList<Task>(taskHistory);
     }
 
@@ -38,6 +43,12 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
+        Node<Task> removeNode = history.get(id);
+
+        Node<Task> oldNext = removeNode.next;
+        Node<Task> oldPrev = removeNode.prev;
+        oldNext.prev = oldPrev;
+        oldPrev.next = oldNext;
 
         history.remove(id);
 

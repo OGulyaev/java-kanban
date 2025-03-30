@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    public List<Task> taskHistory = new ArrayList<>();
+    public static List<Task> taskHistory = new ArrayList<>();
     public HashMap<Integer, Node<Task>> history = new HashMap<>();
     public Node<Task> head;
     public Node<Task> tail;
@@ -14,42 +14,43 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public ArrayList<Task> getHistory() {
-        // добавить перебор двусвязного списка с добавлением в taskHistory
         Node<Task> element = head;
-        while (element.next !=null) {
+        while (element != null) {
             taskHistory.add(element.data);
             element = element.next;
         }
-        return new ArrayList<Task>(taskHistory);
+        return new ArrayList<>(taskHistory);
     }
 
     @Override
     public void add(Task task) {
         if (task != null) {
-            if (history.get(task.getId()) != null) remove(task.getId());
+            if (history.containsKey(task.getId())) {
+                remove(task.getId());
+            }
             final Node<Task> oldTail = tail;
             final Node<Task> newNode = new Node<>(oldTail, task, null);
             tail = newNode;
-            if (oldTail == null)
+            if (oldTail == null) {
                 head = newNode;
-            else
+            } else {
                 oldTail.next = newNode;
+            }
             size++;
             history.put(task.getId(), newNode);
         }
-
-
     }
 
     @Override
     public void remove(int id) {
+
         Node<Task> removeNode = history.get(id);
 
         Node<Task> oldNext = removeNode.next;
         Node<Task> oldPrev = removeNode.prev;
-        oldNext.prev = oldPrev;
-        oldPrev.next = oldNext;
-
+        if (oldPrev != null) oldPrev.next = oldNext;
+        if (oldNext != null) oldNext.prev = oldPrev;
+        size--;
         history.remove(id);
 
     }

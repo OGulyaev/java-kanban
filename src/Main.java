@@ -72,7 +72,7 @@ public class Main {
         printTask(2);
 
         System.out.println();
-        System.out.println("История. Проверка лимита в 10 задач:");
+        System.out.println("История. Проверка добавления просомтров и удаления повторов:");
         printHistory();
 
         System.out.println("Удаление задачи, эпика и подзадачи по ID. Вывод оставшихся:");

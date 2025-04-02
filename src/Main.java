@@ -2,9 +2,11 @@ import manager.*;
 import model.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static TaskManager taskManager = Managers.getDefault();
+    public static InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
 
     public static void main(String[] args) {
 
@@ -60,10 +62,13 @@ public class Main {
         taskManager.updateSubtask(new Subtask(7, "Sub 7", "Upd sub description",
                 Status.NEW, 4));
         printEpic(4);
-
+        printTask(1);
+        printTask(2);
         System.out.println();
         System.out.println("История:");
         printHistory();
+        System.out.println("История2:");
+        System.out.println(historyManager.history);
 
         printTask(1);
         printTask(2);
@@ -74,6 +79,12 @@ public class Main {
         System.out.println();
         System.out.println("История. Проверка добавления просомтров и удаления повторов:");
         printHistory();
+        System.out.println("История2:");
+        System.out.println(historyManager.history);
+        for (Map.Entry<Integer, Node<Task>> entry : historyManager.history.entrySet()) {
+            System.out.println(":" + entry.getKey() + ": " + entry.getValue());
+        }
+
 
         System.out.println("Удаление задачи, эпика и подзадачи по ID. Вывод оставшихся:");
         taskManager.deleteTask(1);

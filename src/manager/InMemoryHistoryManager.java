@@ -7,17 +7,17 @@ import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
     public static List<Task> taskHistory = new ArrayList<>();
-    public HashMap<Integer, Node<Task>> history = new HashMap<>();
-    public Node<Task> head;
-    public Node<Task> tail;
+    public static HashMap<Integer, Node<Task>> history = new HashMap<>();
+    public static Node<Task> head;
+    public static Node<Task> tail;
     private static int size = 0;
 
     @Override
     public ArrayList<Task> getHistory() {
-        Node<Task> element = head;
+        Node<Task> element = tail;
         while (element != null) {
             taskHistory.add(element.data);
-            element = element.next;
+            element = element.prev;
         }
         return new ArrayList<>(taskHistory);
     }

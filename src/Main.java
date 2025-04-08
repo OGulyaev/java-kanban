@@ -61,15 +61,12 @@ public class Main {
         System.out.println("Проверка перехода эпика в статус NEW, когда все подзадачи NEW:");
         taskManager.updateSubtask(new Subtask(7, "Sub 7", "Upd sub description",
                 Status.NEW, 4));
-        printEpic(4);
-        printTask(1);
-        printTask(2);
+
         System.out.println();
         System.out.println("История:");
         printHistory();
-        System.out.println("История2:");
-        System.out.println(historyManager.history);
 
+        System.out.println("Добавляем просмотры в Историю:");
         printTask(1);
         printTask(2);
         printEpic(4);
@@ -79,13 +76,8 @@ public class Main {
         System.out.println();
         System.out.println("История. Проверка добавления просомтров и удаления повторов:");
         printHistory();
-        System.out.println("История2:");
-        System.out.println(historyManager.history);
-        for (Map.Entry<Integer, Node<Task>> entry : historyManager.history.entrySet()) {
-            System.out.println(":" + entry.getKey() + ": " + entry.getValue());
-        }
 
-
+        System.out.println();
         System.out.println("Удаление задачи, эпика и подзадачи по ID. Вывод оставшихся:");
         taskManager.deleteTask(1);
         taskManager.deleteEpic(3);

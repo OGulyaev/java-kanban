@@ -22,18 +22,15 @@ class InMemoryHistoryManagerTest {
         assertEquals(task.getDescription(), taskFromHistory.getDescription(), "Задачи не совпадают.");
         assertEquals(task.getStatus(), taskFromHistory.getStatus(), "Задачи не совпадают.");
     }
-/*
 
     @Test
-    void controlMaxHistorySizeIs10() {
-        int maxHistorySize = 10;
-        for (int i = 0; i <= maxHistorySize + 1; i++) {
-            Task task = new Task(taskManager.generateId(),"Test addNewTask", "Test addNewTask description", Status.NEW);
-            historyManager.add(task);
-        }
-        List<Task> history = historyManager.getHistory();
-        assertEquals(maxHistorySize, history.size(), "Размер истории не 10.");
+    void controlTaskDeleteFromHistoryIfTaskWasViewed() {
+        Task task1 = new Task(11,"Test addNewTask", "Test addNewTask description", Status.NEW);
+        historyManager.add(task1);
+        historyManager.add(task1);
+        assertEquals(1, historyManager.getHistory().size(), "Размер истории не 1");
     }
-*/
+
+
 
 }

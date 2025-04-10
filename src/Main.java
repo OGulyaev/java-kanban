@@ -2,11 +2,10 @@ import manager.*;
 import model.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Main {
     public static TaskManager taskManager = Managers.getDefault();
-    public static InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
+    //public static InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
 
     public static void main(String[] args) {
 

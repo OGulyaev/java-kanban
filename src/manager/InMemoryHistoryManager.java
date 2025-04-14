@@ -2,29 +2,67 @@ package manager;
 
 import model.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private static final int MAX_HISTORY_SIZE = 10;
-    public List<Task> taskHistory = new ArrayList<>();
+    public static HashMap<Integer, Node<Task>> history = new HashMap<>();
+    public static Node<Task> head = null;
+    public static Node<Task> tail = null;
+    private static int size = 0;
 
     @Override
     public ArrayList<Task> getHistory() {
-        return new ArrayList<Task>(taskHistory);
+        ArrayList<Task> taskHistory = new ArrayList<>();
+        Node<Task> current = head;
+        while (current != null) {
+            taskHistory.add(current.data);
+            current = current.next;
+        }
+        return taskHistory;
     }
 
     @Override
-    public void addInHistory(Task task) {
+    public void add(Task task) {
         if (task != null) {
-            if (taskHistory.size() >= MAX_HISTORY_SIZE) taskHistory.remove(0);
-            taskHistory.add(task);
+            if (history.containsKey(task.getId())) {
+                remove(task.getId());
+            }
+            history.put(task.getId(), linkLast(task));
         }
     }
 
     @Override
-    public int getHistoryMaxSize() {
-        return MAX_HISTORY_SIZE;
+    public void remove(int id) {
+        removeNode(history.get(id));
+        history.remove(id);
+    }
 
+    public Node<Task> linkLast(Task task) {
+        Node<Task> newNode = new Node<>(task);
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
+        }
+        size++;
+        return newNode;
+    }
+
+    private void removeNode(Node<Task> node) {
+        if (node.prev == null) {
+            head = node.next;
+        } else {
+            node.prev.next = node.next;
+        }
+        if (node.next == null) {
+            tail = node.prev;
+        } else {
+            node.next.prev = node.prev;
+        }
+        size--;
     }
 
 }

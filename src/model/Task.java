@@ -43,10 +43,6 @@ public class Task {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     @Override
     public String toString() {
         return "Task ID " + getId() + ", " + getName() + ", " + getDescription() + ", " + getStatus();

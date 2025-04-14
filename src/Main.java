@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Main {
     public static TaskManager taskManager = Managers.getDefault();
+    //public static InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
 
     public static void main(String[] args) {
 
@@ -59,12 +60,12 @@ public class Main {
         System.out.println("Проверка перехода эпика в статус NEW, когда все подзадачи NEW:");
         taskManager.updateSubtask(new Subtask(7, "Sub 7", "Upd sub description",
                 Status.NEW, 4));
-        printEpic(4);
 
         System.out.println();
         System.out.println("История:");
         printHistory();
 
+        System.out.println("Добавляем просмотры в Историю:");
         printTask(1);
         printTask(2);
         printEpic(4);
@@ -72,9 +73,10 @@ public class Main {
         printTask(2);
 
         System.out.println();
-        System.out.println("История. Проверка лимита в 10 задач:");
+        System.out.println("История. Проверка добавления просомтров и удаления повторов:");
         printHistory();
 
+        System.out.println();
         System.out.println("Удаление задачи, эпика и подзадачи по ID. Вывод оставшихся:");
         taskManager.deleteTask(1);
         taskManager.deleteEpic(3);

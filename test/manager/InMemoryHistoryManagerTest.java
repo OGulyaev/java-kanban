@@ -3,6 +3,8 @@ package manager;
 import model.Status;
 import model.Task;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,7 +17,14 @@ class InMemoryHistoryManagerTest {
         Task task1 = new Task(11,"Test addNewTask", "Test addNewTask description", Status.NEW);
         historyManager.add(task1);
         historyManager.add(task1);
-        assertEquals(1, historyManager.getHistory().size(), "Размер истории не 1");
+        int amountTasks = 0;
+        ArrayList<Task> taskInHistory = historyManager.getHistory();
+        for (Task task : taskInHistory) {
+            if (task.getId() == 11) {
+                amountTasks++;
+            }
+        }
+        assertEquals(1, amountTasks, "Размер истории не 1");
     }
 
     @Test
